@@ -1,0 +1,27 @@
+source script_config
+
+current=$PWD
+
+function split_pane {
+  osascript -e 'tell application "System Events" to key code 2 using {command down, shift down}'
+  write_command 'cd '$current
+}
+
+function split_vertical {
+  osascript -e 'tell application "System Events" to key code 2 using {command down}'
+  write_command 'cd '$current
+}
+
+function write_command {
+  osascript -e 'tell application "System Events" to keystroke '"\"$1\""
+  osascript -e 'tell application "System Events" to key code 52'
+}
+
+split_vertical
+
+for i in ${split_and_command[@]}; do
+  write_command $i
+  echo $i
+  split_pane
+done
+

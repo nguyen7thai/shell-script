@@ -1,0 +1,5 @@
+split_and_command=(
+  http-server
+  redis-server
+  grunt
+)
