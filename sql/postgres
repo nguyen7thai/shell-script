@@ -1,0 +1,14 @@
+db_host="localhost"
+db_port="5432"
+db_username="bebe"
+db_name="github_analize_dev"
+
+# backup, already compressed
+PGPASSWORD="$db_password" pg_dump -Fc -U "$db_username" -h "$db_host" -p $db_port "$db_name" | gzip -9 > "$output_filename"
+
+# restore
+PGPASSWORD="$db_password" pg_restore -c -U "$db_username" -h "$db_host" -p $db_port -d "$db_name" "$input_file_name"
+
+# restore from heroku
+
+PGPASSWORD="$db_password" pg_restore --verbose --clean --no-acl --no-owner -U "$db_username" -h "$db_host" -p $db_port -d "$db_name" "$input_file_name"
